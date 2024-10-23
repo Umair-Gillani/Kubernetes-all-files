@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworldapp
+  labels:
+    app: helloworldapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: helloworldapp
+  template:
+    metadata:
+      labels:
+        app: helloworldapp
+    spec:
+      containers:
+      - name: helloworldapp
+        image: umair7865/java:latest  
+        ports:
+        - containerPort: 8080
