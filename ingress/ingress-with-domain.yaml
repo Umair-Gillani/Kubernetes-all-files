@@ -1,20 +1,20 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name:  ingress
+  name:  ingress    # ------------------------------------- The name of the Ingress resource
   namespace: default
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /  # Annotation to rewrite the URL path, directing all traffic to the root path of the backend service
 spec:
-  ingressClassName: nginx
+  ingressClassName: nginx  # ----------------------- Specifies the Ingress controller to use (in this case, NGINX)
   rules:
-    - host: domain.com  #---------------------------------- Enter Your Domain Here
+    - host: domain.com  # --------------------------------- Enter Your Domain Here
       http:
         paths:
-          - path:  /java
-            pathType: Prefix
+          - path:  /java      # ---------- The URL path that will be used to access the application (e.g., http://domain.com/java)
+            pathType: Prefix  # ---------- Specifies that the path should match if it begins wit
             backend:
               service:
-                name: helloworldapp-service
+                name: helloworldapp-service   # The name of the service to forward traffic to
                 port:
                   number: 9090

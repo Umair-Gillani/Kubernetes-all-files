@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: helloworldapp
+  name: name_of_deployment
   labels:
-    app: helloworldapp
+    app: helloworldapp    # Label to identify this deployment and group related resources
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: helloworldapp
+      app: helloworldapp  # Selector to match PODS with this label, ensuring the deployment manages them
   template:
     metadata:
       labels:
-        app: helloworldapp
+        app: helloworldapp  # Label applied to the PODS created by this deployment
     spec:
       containers:
-      - name: helloworldapp
+      - name: helloworldapp # The name of the container within the POD
         image: umair7865/java:latest  
         ports:
         - containerPort: 8080
