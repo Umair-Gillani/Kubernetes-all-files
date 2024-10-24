@@ -4,17 +4,19 @@ metadata:
   name:  ingress    # ------------------------------------- The name of the Ingress resource
   namespace: default
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /  # Annotation to rewrite the URL path, directing all traffic to the root path of the backend service
+    nginx.ingress.kubernetes.io/rewrite-target: /  #----------- Annotation to rewrite the URL path, directing all traffic to the root path of the backend service
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"    # Forces HTTP to HTTPS redirection even if TLS is not configured in the Ingress
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"    #------ Enables automatic HTTP to HTTPS redirection for hosts with TLS configured
 spec:
-  ingressClassName: nginx  # ----------------------- Specifies the Ingress controller to use (in this case, NGINX)
+  ingressClassName: nginx  #------------------------------- DON'T CHANGE THIS
   rules:
     - host: domain.com  # --------------------------------- Enter Your Domain Here
       http:
         paths:
-          - path:  /java      # ---------- The URL path that will be used to access the application (e.g., http://domain.com/java)
-            pathType: Prefix  # ---------- Specifies that the path should match if it begins wit
+          - path:  /java      # ---------------- The URL path that will be used to access the application (e.g., http://domain.com/java)
+            pathType: Prefix  # ---------------- Specifies that the path should match if it begins wit
             backend:
               service:
-                name: helloworldapp-service   # The name of the service to forward traffic to
+                name: Service-Name-here   # ----The name of the service to forward traffic to
                 port:
-                  number: 9090
+                  number: 9090  #---------------Port of Service
