@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      # serviceAccountName: farrukhssm-sa 
+      containers:   
+      - name: wordpress
+        image: wordpress:5.6.0-php7.4
+        # volumeMounts:
+        #   - name: secrets-store-inline
+        #     mountPath: "/mnt/secrets"
+        #     readOnly: true
+        ports:
+        - containerPort: 80
+          name: wordpress
+        env:
+          - name: WORDPRESS_DB_HOST
+            value: 10.16.3.19
+          - name: WORDPRESS_DB_PASSWORD
+            value: Root@123
+#            valueFrom:
+#              secretKeyRef:
+#                name: my-secret-01
+#                key: MYSQL_ROOT_PASSWORD
+          - name: WORDPRESS_DB_USER
+            value: root
+          - name: WORDPRESS_DB_NAME
+            value: wordpress
+        # volumeMounts:
+        # - name: wordpress-persistent-storage
+        #   mountPath: /var/www/html
+      
+      # volumes:
+      # - name: secrets-store-inline
+      #   csi:
+      #     driver: secrets-store.csi.k8s.io
+      #     readOnly: true
+      #     volumeAttributes:
+      #       secretProviderClass: "aws-secrets"
+
+      # - name: wordpress-persistent-storage
+      #   persistentVolumeClaim:
+      #     claimName: wp-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: wordpress  # Connect this Service to the NGINX pods
+  ports:
+    - protocol: TCP
+      port: 80  # Port on which the service is exposed
+      targetPort: 80  # Port on the NGINX pod that the service will forward to
+  type: LoadBalancer  # Expose this service externally (use NodePort if LoadBalancer is not supported)
+
+
+
+
+#------------------------------------------------------------------------------------------------------------------------------
+#mysql -h 10.16.3.19 -u root -p
+#CREATE DATABASE wordpress;
+#use wordpress;
+#show tables;
+#select * from <table_name>;
+#------------------------------------------------------------------------------------------------------------------------------
