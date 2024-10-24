@@ -1,4 +1,4 @@
-## Copy Paste the content of certificate and private key content to directory and give the path in the below command to create secrets in K8S
+## Copy Paste the content of certificate and private key content into file and give the path of those file in the below command to create secrets in K8S and also pass the secrets into ingress file
 
 ```bash
 kubectl create secret tls <secret-name> --cert=path/to/certificate.crt --key=path/to/private.key --namespace=default

@@ -9,14 +9,18 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"    #------ Enables automatic HTTP to HTTPS redirection for hosts with TLS configured
 spec:
   ingressClassName: nginx  #------------------------------- DON'T CHANGE THIS
+  tls:
+    - hosts:
+        - domain.com
+      secretName: secret-name   #----------------- Name of Secrets where certificate and private is passed
   rules:
-    - host: domain.com  # --------------------------------- Enter Your Domain Here
+    - host: domain.com          # ---------------- Enter Your Domain Here
       http:
         paths:
-          - path:  /java      # ---------------- The URL path that will be used to access the application (e.g., http://domain.com/java)
-            pathType: Prefix  # ---------------- Specifies that the path should match if it begins wit
+          - path:  /java        # ---------------- The URL path that will be used to access the application (e.g., http://domain.com/java)
+            pathType: Prefix    # ---------------- Specifies that the path should match if it begins wit
             backend:
               service:
-                name: Service-Name-here   # ----The name of the service to forward traffic to
+                name: Service-Name-here   # ------ The name of the service to forward traffic to
                 port:
-                  number: 9090  #---------------Port of Service
+                  number: 9090  #----------------- Port of Service
