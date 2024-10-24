@@ -5,6 +5,7 @@ kubectl create secret tls <secret-name> --cert=path/to/certificate.crt --key=pat
 ```
 
 ---
+
 - #####  To View Secrets
 
 ```bash
