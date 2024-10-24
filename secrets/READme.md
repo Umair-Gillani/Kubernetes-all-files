@@ -4,4 +4,6 @@
 kubectl create secret tls seulah-tls --cert=path/to/certificate.crt --key=path/to/private.key --namespace=default
 ```
 
+---
+
 
