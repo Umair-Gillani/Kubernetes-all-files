@@ -43,3 +43,6 @@ Certainly! Let’s use a detailed example with sample IP addresses to illustrate
 - **Security rules must allow traffic** from the Load Balancer to the private subnet IPs to make this flow possible.
 
 This example should give you a clear picture of how the request routes through the infrastructure to reach your application container.
+
+
+![Screenshot_20241028_163818_Samsung Notes](https://github.com/user-attachments/assets/380d7892-6e4d-4b1c-8933-4480e4d07106)
