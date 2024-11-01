@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ingress-controller-controller
+  namespace: kube-system
+  annotations:
+    service.beta.kubernetes.io/oci-load-balancer-compartment-id: ocid1.compartment.oc1..aaaaaaaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxwlq
+    service.beta.kubernetes.io/oci-load-balancer-shape: 10Mbps
+    service.beta.kubernetes.io/oci-load-balancer-subnet1: ocid1.subnet.oc1.me-jeddah-1.aaaaaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxkypq
+    service.beta.kubernetes.io/oci-load-balancer-ip-address: 193.122.91.216
+  labels:
+    app.kubernetes.io/instance: nginx-ingress-controller
+    app.kubernetes.io/name: nginx-ingress
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 193.122.91.216
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 443
+      protocol: TCP
+  selector:
+    app.kubernetes.io/instance: nginx-ingress-controller
+    app.kubernetes.io/name: nginx-ingress
