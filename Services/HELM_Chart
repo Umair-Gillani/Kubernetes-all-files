@@ -1,0 +1,24 @@
+helm install nginx-ingress-controller  nginx-stable/nginx-ingress \
+-n kube-system \
+--set serviceAccount.create=false \
+--set serviceAccount.name=nginx-balancer-controller \
+--set controller.service.type=LoadBalancer \
+--set controller.service.annotations."service\.beta\.kubernetes\.io/oci-load-balancer-shape"="10Mbps" \
+--set controller.service.annotations."service\.beta\.kubernetes\.io/oci-load-balancer-subnet1"="ocid1.subnet.oc1.me-jeddah-1.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxq" \
+--set controller.service.annotations."service\.beta\.kubernetes\.io/oci-load-balancer-compartment-id"="ocid1.compartment.oc1..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxq" 
+
+
+
+helm install external-dns bitnami/external-dns \ 
+--namespace kube-system \ 
+--set provider=oci \
+ --set ociAuth.tenancyOCID=ocid1.tenancy.oc1..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxga
+ \ 
+--set ociAuth.userOCID=ocid1.user.oc1..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxv7b62iexgtpqa
+ \
+ --set ociAuth.compartmentOCID=ocid1.compartment.oc1..xxxxxxxxxxxxxxxxxxxxxxxxxxxxiwlq
+ \ 
+--set ociAuth.fingerprint=xx:xx:xx:xx:Xx:xx:Xx:xx:Xx
+ \ 
+--set ociAuth.privateKey=<private_key_path> \ 
+--set domainFilters={seulah.online}
